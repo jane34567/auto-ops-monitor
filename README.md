@@ -6,16 +6,8 @@
 本项目是一个基于 **Prometheus + Grafana** 的服务器监控与自动化运维系统。集成了 Python 自动化巡检脚本，能够通过 REST API 实时抓取系统核心指标（CPU、内存、I/O），并在检测到异常时触发 **AI 辅助诊断逻辑**，模拟生成故障排查建议。
 
 ## 架构图
-  graph TD
-    A[Docker Host] --> B[NodeExporter / Host监控]
-    A --> C[cAdvisor / 容器监控]
-    B --> D[Prometheus 指标采集]
-    C --> D
-    D --> E[Alertmanager 告警管理]
-    E --> F[monitor.py 自动化脚本]
-    F --> G[自动诊断 / 日志处理]
-    H[Grafana 监控可视化]
-    I[Caddy 负责统一入口访问]
+![Uploading image.png…]()
+
 
 ## 技术栈 (Tech Stack)
 * **核心监控**: Prometheus (时序数据库) + Node Exporter (数据采集)
