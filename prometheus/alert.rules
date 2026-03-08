@@ -1,0 +1,52 @@
+groups:
+
+- name: system-alerts
+  rules:
+
+  - alert: HostDown
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Host Down"
+      description: "Instance {{ $labels.instance }} is down."
+
+  - alert: HighCPUUsage
+    expr: 100 - (avg by(instance)(irate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU Usage"
+      description: "CPU usage above 85% on {{ $labels.instance }}"
+
+  - alert: HighMemoryUsage
+    expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 90
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Memory Usage"
+      description: "Memory usage above 90%"
+
+  - alert: DiskAlmostFull
+    expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes * 100 > 90
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Disk Almost Full"
+      description: "Disk usage above 90%"
+
+- name: container-alerts
+  rules:
+
+  - alert: ContainerHighCPU
+    expr: rate(container_cpu_usage_seconds_total[2m]) * 100 > 80
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Container CPU High"
+      description: "Container CPU usage above 80%"
