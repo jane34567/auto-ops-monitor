@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auto-ops-monitor
+  labels:
+    app: auto-ops-monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auto-ops-monitor
+  template:
+    metadata:
+      labels:
+        app: auto-ops-monitor
+    spec:
+      containers:
+      - name: monitor
+        # 这里填你推送到 Docker Hub 的镜像名
+        image: yourusername/auto-ops-monitor:latest
+        imagePullPolicy: Always
