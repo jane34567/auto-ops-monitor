@@ -16,6 +16,5 @@ spec:
     spec:
       containers:
       - name: monitor
-        # 这里填你推送到 Docker Hub 的镜像名
-        image: yourusername/auto-ops-monitor:latest
+        image: nginx:latest
         imagePullPolicy: Always
